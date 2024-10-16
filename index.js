@@ -1,11 +1,14 @@
 import Express from "express";
+import dotenv from "dotenv"
+import cors from "cors"
+
 import dbConnection from "./DB/dbConnection.js";
-import loginRouter from "./Router/loginRouter.js";
-import employeedetRouter from "./Router/employeDetRouter.js";
+import adminLoginRouter from "./Router/adminLoginRouter.js";
+import employeeCreatRouter from "./Router/employeeCreateRouter.js";
 import getEmployeeDetRouter from "./Router/getEmployeeDetRouter.js";
 import editEmployeeRouter from "./Router/editEmployeeRouter.js";
 
-import cors from "cors"
+
 
 const server=Express();
 
@@ -13,10 +16,13 @@ server.use(cors());
 
 server.use(Express.json());
 
+dotenv.config();
+
 await dbConnection();
 
-server.use("/Login",loginRouter);
-server.use("/CreateEmployee",employeedetRouter);
+server.use("/AdminLogin",adminLoginRouter);
+
+server.use("/CreateEmployee",employeeCreatRouter);
 server.use("/GetEmployeeDetails",getEmployeeDetRouter)
 server.use("/EditEmployeeDet",editEmployeeRouter);
 

@@ -36,9 +36,13 @@ const employeeScheman=new mongoose.Schema({
     f_CreatedDate:{
         type:Date,
         required: true,
+    },
+    f_Password:{
+        type:String,
+        required: true,
     }
 });
 
-const EmployeModel=new mongoose.model("EmployeeDet",employeeScheman,"EmployeeDet");
+const EmployeModel=new mongoose.model("EmployeeDet",employeeScheman,process.env.EMPDETCOLLECTION);
 
 export default EmployeModel;

@@ -5,6 +5,6 @@ const LoginSchema=new mongoose.Schema({
     f_pwd:{type:String,require:true},
 });
 
-const LoginModel=new mongoose.model("Admin",LoginSchema,"Admin");
+const LoginModel=new mongoose.model("Admin",LoginSchema,process.env.ADMINCOLLECTION);
 
 export default LoginModel;

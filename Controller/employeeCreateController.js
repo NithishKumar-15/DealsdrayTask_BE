@@ -1,9 +1,14 @@
 import EmployeModel from "../Model/employeeModel.js";
+import bcrypt from 'bcrypt'
 
-const employeeDetController=async(req,res)=>{
+const employeeCreateController=async(req,res)=>{
     try{    
         if(req.body.f_Gender.toUpperCase()==="MALE"|| req.body.f_Gender.toUpperCase()==="FEMALE"){
-            const data=new EmployeModel(req.body);
+            const hashedPassword=await bcrypt.hash(req.body.f_Password,10);
+            const data=new EmployeModel({
+                ...req.body,
+                f_Password:hashedPassword
+            });
             await data.save();
             res.send({message:"data added successfully"})
         }else{
@@ -16,4 +21,4 @@ const employeeDetController=async(req,res)=>{
     }
 }
 
-export default employeeDetController;
+export default employeeCreateController;
