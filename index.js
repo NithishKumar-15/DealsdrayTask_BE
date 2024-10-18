@@ -7,7 +7,7 @@ import adminLoginRouter from "./Router/adminLoginRouter.js";
 import employeeCreatRouter from "./Router/employeeCreateRouter.js";
 import getEmployeeDetRouter from "./Router/getEmployeeDetRouter.js";
 import editEmployeeRouter from "./Router/editEmployeeRouter.js";
-
+import deleteEmployeeRouter from "./Router/deleteEmployeeRouter.js";
 
 
 const server=Express();
@@ -25,6 +25,7 @@ server.use("/AdminLogin",adminLoginRouter);
 server.use("/CreateEmployee",employeeCreatRouter);
 server.use("/GetEmployeeDetails",getEmployeeDetRouter)
 server.use("/EditEmployeeDet",editEmployeeRouter);
+server.use("/deleteEmp",deleteEmployeeRouter)
 
 server.listen(4000,(err)=>{
     if(err){
