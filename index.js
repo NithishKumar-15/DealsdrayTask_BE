@@ -15,62 +15,57 @@ import employeeLoginRouter from "./Router/employeeLoginRouter.js";
 
 dotenv.config();
 
-const middleware=async(req,res,next)=>{
-    try{
-         jwt.verify(req.headers.token,process.env.JWTSECRETKEY,(err,verify)=>{
-            if(err){
+//Middle ware for specific routers if the token verified send to the next router else send unauthorized
+const middleware = async (req, res, next) => {
+    try {
+        jwt.verify(req.headers.token, process.env.JWTSECRETKEY, (err, verify) => {
+            if (err) {
                 console.log(err)
-                res.send({message:"your unauthorized"})
-            }else{
+                res.send({ message: "your unauthorized" })
+            } else {
                 next();
             }
         });
-        // console.log(verifyToken);
-        // if(verifyToken){
-        //     next();
-        // }else{
-        //     res.send({message:"your unauthorized"})
-        // }
-    }catch(e){
-        res.status(500).send({message:"internal server error",e})
+    } catch (e) {
+        res.status(500).send({ message: "internal server error", e })
     }
 }
 
-const expServer=Express();
+const expServer = Express();
 
 expServer.use(cors());
 
 expServer.use(Express.json());
 
-const server=createServer(expServer);
+const server = createServer(expServer);
 
-const io=new Server(server,{
-    cors:{
-        origin:"*"
+const io = new Server(server, {
+    cors: {
+        origin: "*"
     }
 })
 
-io.on("connection",(socket)=>{
-    socket.on("message",(msg)=>{
-        socket.broadcast.emit("message",msg)
+io.on("connection", (socket) => {
+    socket.on("message", (msg) => {
+        socket.broadcast.emit("message", msg)
     })
-    
+
 })
 
 await dbConnection();
 
-expServer.use("/AdminLogin",adminLoginRouter);
+expServer.use("/AdminLogin", adminLoginRouter);
 
-expServer.use("/CreateEmployee",middleware,employeeCreatRouter);
-expServer.use("/GetEmployeeDetails",middleware,getEmployeeDetRouter)
-expServer.use("/EditEmployeeDet",middleware,editEmployeeRouter);
-expServer.use("/deleteEmp",middleware,deleteEmployeeRouter);
-expServer.use("/employeeLogin",employeeLoginRouter);
+expServer.use("/CreateEmployee", middleware, employeeCreatRouter);
+expServer.use("/GetEmployeeDetails", middleware, getEmployeeDetRouter)
+expServer.use("/EditEmployeeDet", middleware, editEmployeeRouter);
+expServer.use("/deleteEmp", middleware, deleteEmployeeRouter);
+expServer.use("/employeeLogin", employeeLoginRouter);
 
-server.listen(4000,(err)=>{
-    if(err){
+server.listen(4000, (err) => {
+    if (err) {
         console.log("Connection failed")
-    }else{
+    } else {
         console.log("Server listerning in port 4000")
     }
 })

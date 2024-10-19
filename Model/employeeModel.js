@@ -1,48 +1,48 @@
 import mongoose from "mongoose";
 
-const employeeScheman=new mongoose.Schema({
-    f_Id:{
-        type:Number,
+const employeeScheman = new mongoose.Schema({
+    f_Id: {
+        type: Number,
         required: true,
     },
-    f_Image:{
-        type:String,
+    f_Image: {
+        type: String,
         required: true,
     },
-    f_Name:{
-        type:String,
+    f_Name: {
+        type: String,
         required: true,
     },
-    f_Email:{
-        type:String,
+    f_Email: {
+        type: String,
         required: true,
     },
-    f_Mobile:{
-        type:Number,
-        required:true
+    f_Mobile: {
+        type: Number,
+        required: true
     },
-    f_Designation:{
-        type:String,
+    f_Designation: {
+        type: String,
         required: true,
     },
-    f_Gender:{
-        type:String,
+    f_Gender: {
+        type: String,
         required: true,
     },
-    f_Course:{
-        type:String,
+    f_Course: {
+        type: String,
         required: true,
     },
-    f_CreatedDate:{
-        type:Date,
+    f_CreatedDate: {
+        type: Date,
         required: true,
     },
-    f_Password:{
-        type:String,
+    f_Password: {
+        type: String,
         required: true,
     }
 });
 
-const EmployeModel=new mongoose.model("EmployeeDet",employeeScheman,process.env.EMPDETCOLLECTION);
+const EmployeModel = new mongoose.model("EmployeeDet", employeeScheman, process.env.EMPDETCOLLECTION);
 
 export default EmployeModel;

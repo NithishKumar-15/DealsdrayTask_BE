@@ -3,15 +3,15 @@ import dotenv from "dotenv"
 
 dotenv.config();
 
-const url=process.env.DBCLUSTER;
+const url = process.env.DBCLUSTER;
 
-const dbConnection=async()=>{
-    try{
+const dbConnection = async () => {
+    try {
         await mongoose.connect(url);
-        mongoose.set("autoIndex",false)
+        mongoose.set("autoIndex", false)
         console.log("DB Connection successful")
-    }catch(e){
-        console.log("Db Connection failed",e);
+    } catch (e) {
+        console.log("Db Connection failed", e);
         process.exit(1);
     }
 }
