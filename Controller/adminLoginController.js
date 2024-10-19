@@ -7,7 +7,7 @@ const adminLoginController=async(req,res)=>{
         const data=await LoginModel.findOne({f_userName:req.body.name,f_pwd:req.body.password}).select({ _id: 0,f_pwd:0});
         
         if(data!=null){
-            jwt.sign({...data},process.env.JWTSECRETKEY,{algorithm:"HS256",expiresIn:"15"},(err,token)=>{
+            jwt.sign({...data},process.env.JWTSECRETKEY,{algorithm:"HS256",expiresIn:"15m"},(err,token)=>{
             if(err){
                 console.log(err)
             }else{
